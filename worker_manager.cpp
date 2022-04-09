@@ -118,21 +118,8 @@ void work_manager::init_worker() {
 		int dept_id;
 		int num = 0;
 		this->m_wr_arr_pt = new worker * [this->m_worker_num];
-		//for (int i = 0; i < this->m_worker_num; i++) {
-		//	cout << "daxiao1" << this->m_worker_num << endl;
-		//	this->m_wr_arr_pt[i]->m_worker_id = 10000;
-		//	this->m_wr_arr_pt[i]->m_name = "";
-		//	this->m_wr_arr_pt[i]->m_dept_id = 0;
-		//	//this->m_wr_arr_pt[i] = NULL;
-		//}
-
 		while (ifs >> id && ifs >> name && ifs >> dept_id)
 		{
-			//cout << "daxiaow" << this->m_worker_num << endl;
-			//if (is_exist(id)) {	
-			//	continue;
-			//}
-			//else
 			if (dept_id == 1) {
 				wr_pt = new employee(id, name, dept_id);
 			}
@@ -151,7 +138,6 @@ void work_manager::init_worker() {
 			num++;
 			this->m_worker_num = num;
 		}
-		//this->m_worker_num = num;
 	}
 	else {
 		this->m_worker_num = 0;

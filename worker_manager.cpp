@@ -1,9 +1,7 @@
-﻿// worker_manager.cpp: 定义应用程序的入口点。
-//
+﻿
 #include "worker_manager.h"
 #include <iostream>
 using namespace std;
-void choice_process(work_manager& wm);
 int main()
 {
 	work_manager wm;

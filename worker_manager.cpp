@@ -317,10 +317,12 @@ void work_manager::sort_worker() {
 		cout << "没有员工，请先添加员工" << endl;
 		return;
 	}
-	cout << "请输入要排序的方式:\n"
-		 << "升序：0\n"
-		 << "降序：1"
+	//cout << "请输入要排序的方式:\n"
+	 cout<< "按工号升序：0\n"
+		 << "按工号降序：1\n"
+		 << "按职位排序：2"
 		 << endl;
+		 cout << "请输入要排序的方式:";
 	cin >> sort_sel;
 	for (int i = 0; i < this->m_worker_num; i++) {
 		for (int j=i+1;j< this->m_worker_num;j++){
@@ -331,9 +333,16 @@ void work_manager::sort_worker() {
 					m_wr_arr_pt[i] = worker_pt;
 				}
 			}
-			else {
+			else if(sort_sel==1) {
 				if (this->m_wr_arr_pt[j]->m_worker_id >= this->m_wr_arr_pt[i]->m_worker_id) {
 					worker* worker_pt= m_wr_arr_pt[j];
+					m_wr_arr_pt[j] = m_wr_arr_pt[i];
+					m_wr_arr_pt[i] = worker_pt;
+				}
+			}
+			else {
+				if (this->m_wr_arr_pt[j]->m_dept_id > this->m_wr_arr_pt[i]->m_dept_id) {
+					worker* worker_pt = m_wr_arr_pt[j];
 					m_wr_arr_pt[j] = m_wr_arr_pt[i];
 					m_wr_arr_pt[i] = worker_pt;
 				}

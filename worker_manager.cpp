@@ -313,6 +313,10 @@ void work_manager::search_worker() {
 }
 void work_manager::sort_worker() {
 	int sort_sel;	
+	if (this->m_worker_num <= 0) {
+		cout << "没有员工，请先添加员工" << endl;
+		return;
+	}
 	cout << "请输入要排序的方式:\n"
 		 << "升序：0\n"
 		 << "降序：1"
@@ -325,7 +329,6 @@ void work_manager::sort_worker() {
 					worker* worker_pt= m_wr_arr_pt[j];
 					m_wr_arr_pt[j] = m_wr_arr_pt[i];
 					m_wr_arr_pt[i] = worker_pt;
-					//this->m_wr_arr_pt[i]->show_info();
 				}
 			}
 			else {
@@ -333,7 +336,6 @@ void work_manager::sort_worker() {
 					worker* worker_pt= m_wr_arr_pt[j];
 					m_wr_arr_pt[j] = m_wr_arr_pt[i];
 					m_wr_arr_pt[i] = worker_pt;
-					//this->m_wr_arr_pt[i]->show_info();
 				}
 			}
 		}

@@ -173,6 +173,7 @@ void work_manager::add_worker() {
 			int id;
 			string name;
 			int sel;
+			int has_new = 1;
 			cout << "请输入第 " << i + 1 << " 个新职工编号：";
 			cin >> id;
 			if (is_exist(id)) {
@@ -199,7 +200,13 @@ void work_manager::add_worker() {
 				worker_pt = new boss(id, name, 3);
 				break;
 			default:
+				has_new = 0;
 				break;
+			}
+			if (has_new == 0) {
+				cout << "岗位选择有误，请确认后重新输入。" << endl;
+				i--;
+				continue;
 			}
 			new_space[origin_num + i] = worker_pt;
 			//delete[] this->m_wr_arr_pt;//bug???????
@@ -242,7 +249,7 @@ void work_manager::delete_worker() {
 		cout << "员工数量为0,无法删除" << endl;
 	}
 	else {
-		cout << "请输入想要删除的员工编号：" << endl;
+		cout << "请输入想要删除的员工编号：";
 		cin >> id;
 		if (is_exist(id)) {
 			for (int i = 0; i < this->m_worker_num ; i++) {
@@ -273,7 +280,7 @@ void work_manager::delete_worker() {
 void work_manager::modify_worker() {
 	int id;
 	int sel;
-	cout << "请输入要修改员工编号:" << endl;
+	cout << "请输入要修改员工编号:";
 	cin >> id;
 	for (int i = 0; i < this->m_worker_num; i++) {
 		if (this->m_wr_arr_pt[i]->m_worker_id == id) {
@@ -283,7 +290,9 @@ void work_manager::modify_worker() {
 			cout << "1、普通职工" << endl;
 			cout << "2、经理" << endl;
 			cout << "3、老板" << endl;
+			cout << "请输入你的选择：";
 			cin >> sel;
+			int     has_new = 1;
 			worker* worker_pt = NULL;
 			switch (sel) {
 			case 1:
@@ -296,9 +305,13 @@ void work_manager::modify_worker() {
 				worker_pt = new boss(id, this->m_wr_arr_pt[i]->m_name, 3);
 				break;
 			default:
+				has_new = 0;
+				cout << "修改失败，无此岗位" << endl;
 				break;
 			}
-			this->m_wr_arr_pt[i]=worker_pt;
+			if (has_new == 1) {
+				this->m_wr_arr_pt[i] = worker_pt;
+			}
 			return;
 		}
 	}

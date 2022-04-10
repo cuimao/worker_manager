@@ -236,6 +236,7 @@ void work_manager::show_worker() {
 void work_manager::delete_worker() {
 	int id=0;
 	int id_index=0;
+	char sel;
 	if (this->m_file_isempty == true) {
 		cout << "员工数量为0,无法删除" << endl;
 	}
@@ -244,17 +245,24 @@ void work_manager::delete_worker() {
 		cin >> id;
 		if (is_exist(id)) {
 			for (int i = 0; i < this->m_worker_num ; i++) {
-				if (m_wr_arr_pt[i]->m_worker_id == id) {
+				if (this->m_wr_arr_pt[i]->m_worker_id == id) {
 					id_index = i;
-					break;// TODO
+					break;
 				}
 			}
-			
-			for (int i = id_index; i < this->m_worker_num - 1; i++) {
-				this->m_wr_arr_pt[i] = this->m_wr_arr_pt[i + 1];						
+			cout << "确认删除工号为:" << id << "姓名是：" <<
+				this->m_wr_arr_pt[id_index]->m_name << "的员工(Y/N)?" << endl;
+			cout << "请输入你的选择：";
+			cin >> sel;
+			if (sel == 'Y' || sel == 'y') {
+				cout << "工号为:" << id << "姓名是：" <<
+					this->m_wr_arr_pt[id_index]->m_name << "的员工已删除。" << endl;
+				for (int i = id_index; i < this->m_worker_num - 1; i++) {
+					this->m_wr_arr_pt[i] = this->m_wr_arr_pt[i + 1];
+				}
+				this->m_worker_num--;
+				this->save_worker();
 			}
-			this->m_worker_num--;
-			this->save_worker();			
 		}
 		else {
 			cout << "找不到此员工，删除失败" << endl;
@@ -278,18 +286,18 @@ void work_manager::modify_worker() {
 			worker* worker_pt = NULL;
 			switch (sel) {
 			case 1:
-				worker_pt = new employee(id, m_wr_arr_pt[i]->m_name, 1);
+				worker_pt = new employee(id, this->m_wr_arr_pt[i]->m_name, 1);
 				break;
 			case 2:
-				worker_pt = new manager(id, m_wr_arr_pt[i]->m_name, 2);
+				worker_pt = new manager(id, this->m_wr_arr_pt[i]->m_name, 2);
 				break;
 			case 3:
-				worker_pt = new boss(id, m_wr_arr_pt[i]->m_name, 3);
+				worker_pt = new boss(id, this->m_wr_arr_pt[i]->m_name, 3);
 				break;
 			default:
 				break;
 			}
-			m_wr_arr_pt[i]=worker_pt;
+			this->m_wr_arr_pt[i]=worker_pt;
 			return;
 		}
 	}
@@ -317,7 +325,6 @@ void work_manager::sort_worker() {
 		cout << "没有员工，请先添加员工" << endl;
 		return;
 	}
-	//cout << "请输入要排序的方式:\n"
 	 cout<< "按工号升序：0\n"
 		 << "按工号降序：1\n"
 		 << "按职位排序：2"
@@ -328,23 +335,23 @@ void work_manager::sort_worker() {
 		for (int j=i+1;j< this->m_worker_num;j++){
 			if (sort_sel == 0) {
 				if (this->m_wr_arr_pt[j]->m_worker_id <= this->m_wr_arr_pt[i]->m_worker_id) {
-					worker* worker_pt= m_wr_arr_pt[j];
-					m_wr_arr_pt[j] = m_wr_arr_pt[i];
-					m_wr_arr_pt[i] = worker_pt;
+					worker* worker_pt= this->m_wr_arr_pt[j];
+					this->m_wr_arr_pt[j] = this->m_wr_arr_pt[i];
+					this->m_wr_arr_pt[i] = worker_pt;
 				}
 			}
 			else if(sort_sel==1) {
 				if (this->m_wr_arr_pt[j]->m_worker_id >= this->m_wr_arr_pt[i]->m_worker_id) {
-					worker* worker_pt= m_wr_arr_pt[j];
-					m_wr_arr_pt[j] = m_wr_arr_pt[i];
-					m_wr_arr_pt[i] = worker_pt;
+					worker* worker_pt= this->m_wr_arr_pt[j];
+					this->m_wr_arr_pt[j] = this->m_wr_arr_pt[i];
+					this->m_wr_arr_pt[i] = worker_pt;
 				}
 			}
 			else {
 				if (this->m_wr_arr_pt[j]->m_dept_id > this->m_wr_arr_pt[i]->m_dept_id) {
-					worker* worker_pt = m_wr_arr_pt[j];
-					m_wr_arr_pt[j] = m_wr_arr_pt[i];
-					m_wr_arr_pt[i] = worker_pt;
+					worker* worker_pt = this->m_wr_arr_pt[j];
+					this->m_wr_arr_pt[j] = this->m_wr_arr_pt[i];
+					this->m_wr_arr_pt[i] = worker_pt;
 				}
 			}
 		}
@@ -356,9 +363,9 @@ void work_manager::save_worker() {
 	ofstream ofs;
 	ofs.open(FILENAME, ios::out);
 	for (int i = 0; i < this->m_worker_num; i++) {
-		ofs << m_wr_arr_pt[i]->m_worker_id << "       "
-			<< m_wr_arr_pt[i]->m_name << "        "
-			<< m_wr_arr_pt[i]->m_dept_id << "        " << endl;
+		ofs << this->m_wr_arr_pt[i]->m_worker_id << "       "
+			<< this->m_wr_arr_pt[i]->m_name << "        "
+			<< this->m_wr_arr_pt[i]->m_dept_id << "        " << endl;
 	}
 	ofs.close();
 }

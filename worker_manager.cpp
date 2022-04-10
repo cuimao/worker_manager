@@ -39,6 +39,7 @@ void choice_process(work_manager& wm ) {
 				wm.sort_worker();
 				break;
 			case 7: //清空文件
+				wm.clear_workers();
 				break;
 			default:
 				break;
@@ -368,6 +369,11 @@ void work_manager::save_worker() {
 			<< this->m_wr_arr_pt[i]->m_dept_id << "        " << endl;
 	}
 	ofs.close();
+}
+void work_manager::clear_workers() {
+	cout << endl;
+	cout << "目前还不支持此功能，敬请期待，谢谢。" << endl;
+	cout << endl;
 }
 void work_manager::exit_system() {
 	cout << "欢迎下次使用" << endl;

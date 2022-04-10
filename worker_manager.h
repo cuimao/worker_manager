@@ -28,5 +28,6 @@ class work_manager {
 		void modify_worker();
 		void search_worker();
 		void sort_worker();
+		void clear_workers();
 };
 void choice_process(work_manager& wm);

@@ -169,19 +169,19 @@ void work_manager::add_worker() {
 				new_space[i] = this->m_wr_arr_pt[i];
 			}
 		}
-		for (int i = 0; i < add_num ; i++) {
+		for (int i = 1; i <= add_num ; i++) {
 			int id;
 			string name;
 			int sel;
 			int has_new = 1;
-			cout << "请输入第 " << i + 1 << " 个新职工编号：";
+			cout << "请输入第 " << i << " 个新职工编号：";
 			cin >> id;
 			if (is_exist(id)) {
 				cout << "此员工编号已被使用,请检查后，重新输入" << endl;
 				i--;
 				continue;
 			}
-			cout << "请输入第 " << i + 1 << " 个新职工姓名：";
+			cout << "请输入第 " << i << " 个新职工姓名：";
 			cin >> name;
 			cout << "请选择该职工的岗位："<< endl;
 			cout << "1、普通职工" << endl;
@@ -208,7 +208,7 @@ void work_manager::add_worker() {
 				i--;
 				continue;
 			}
-			new_space[origin_num + i] = worker_pt;
+			new_space[origin_num + i -1] = worker_pt;
 			//delete[] this->m_wr_arr_pt;//bug???????
 			this->m_worker_num++;
 			this->m_wr_arr_pt = new_space;			
